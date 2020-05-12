@@ -1,0 +1,26 @@
+
+* Shell utility
+
+This library let's you generate shell scripts from SBCL. Here's how:
+
+#+BEGIN_SRC lisp
+(shell-utility:write-shell-utility :sbcl
+  (:name "/home/username/bin/hello") ;; name of script
+  (:load-system :alexandria)
+  (:eval (defun hello (names &key (intensity "1"))
+           (format t "Hello ~{~A~^ and ~}" names)
+           (dotimes (n (read-from-string intensity))
+             (princ "!"))
+           (terpri)))
+  (:launch hello)) ;; Call hello with error handler and parsed argv.
+#+END_SRC
+
+Evaluating the above form (fill in your username) will generate a
+shell script that can be run as follows:
+
+#+BEGIN_SRC sh
+hello --intensity 2 Homer Marge Bart Lisa Maggie
+#+END_SRC
+
+Other commands are available too, please see examples.lisp or study
+the source and tests.
