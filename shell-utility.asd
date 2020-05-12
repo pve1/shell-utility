@@ -1,9 +1,9 @@
 ;;;; shell-utility.asd
 
 (asdf:defsystem #:shell-utility
-  :description "Describe shell-utility here"
-  :author "Your Name <your.name@example.com>"
-  :license  "Specify license here"
+  :description "A library that let's you generate shell scripts from SBCL."
+  :author "Peter von Etter <your.name@example.com.invalid>"
+  :license  "LLGPL"
   :version "0.0.1"
   :serial t
   :components ((:file "package")
