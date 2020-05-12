@@ -1,7 +1,7 @@
 
 * Shell utility
 
-This library that let's you generate shell scripts from SBCL. Here's how:
+This library let's you generate shell scripts from SBCL. Here's how:
 
 #+BEGIN_SRC lisp
 (shell-utility:write-shell-utility :sbcl
