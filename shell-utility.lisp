@@ -179,7 +179,7 @@
 
 ;; myscript foo bar
 
-(defgeneric launch (symbol)
+(defgeneric launch (function-designator)
   (:method ((s symbol))
     (launch/2 (make-instance 'shell-utility) s))
   (:method ((s function))
@@ -193,12 +193,12 @@
     (launch/2 s (fdefinition symbol)))
 
   (:method ((s shell-utility) (function function))
-    (handler-case (call-start-function/2 s function)
+    (handler-case (call-init-function s function)
       (serious-condition (x) (format t "~%Received ~A~%" x)))))
 
-(defgeneric call-start-function/2 (shell-utility function-designator)
+(defgeneric call-init-function (shell-utility function-designator)
   (:method ((s shell-utility) (function-designator symbol))
-    (call-start-function/2 s (fdefinition function-designator)))
+    (call-init-function s (fdefinition function-designator)))
 
   (:method ((s shell-utility) (function-designator function))
     (let* ((argv (apply-argv:parse-argv (apply-argv:get-argv)))
