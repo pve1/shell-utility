@@ -256,7 +256,9 @@
 
 ;; Working directory when running script
 (define-preprocess-command (s shell-utility) (:cd dir)
-  (setf (working-directory s) (namestring dir))
+  (if (eq dir :here)
+      (setf (working-directory s) "`dirname $(readlink -fn $0)`")
+      (setf (working-directory s) (namestring dir)))
   nil)
 
 (define-preprocess-command (s shell-utility) (:clear-lisp-options)
