@@ -4,6 +4,8 @@
 This library let's you generate shell scripts from SBCL. Here's how:
 
 #+BEGIN_SRC lisp
+;; Any number of load, eval or load-system commands can be used.
+
 (shell-utility:write-shell-utility :sbcl
   (:name "/home/username/bin/hello") ;; name of script
   (:load-system :alexandria)
