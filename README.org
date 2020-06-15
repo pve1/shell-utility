@@ -18,7 +18,22 @@ This library let's you generate shell scripts from SBCL. Here's how:
 #+END_SRC
 
 Evaluating the above form (fill in your username) will generate a
-shell script that can be run as follows:
+shell script that looks like this:
+
+#+BEGIN_SRC sh
+#!/bin/sh
+sbcl \
+--noinform \
+--disable-debugger \
+--quit \
+--eval '(ASDF:LOAD-SYSTEM "alexandria")' \
+--eval '(DEFUN SYMBOLIC-SMALLTALK.SUGGESTED::HELLO (SYMBOLIC-SMALLTALK.SUGGESTED::NAMES &KEY (SYMBOLIC-SMALLTALK.SUGGESTED::INTENSITY "1")) (FORMAT T "Hello ~{~A~^ and ~}" SYMBOLIC-SMALLTALK.SUGGESTED::NAMES) (DOTIMES (SYMBOLIC-SMALLTALK.SUGGESTED::N (READ-FROM-STRING SYMBOLIC-SMALLTALK.SUGGESTED::INTENSITY)) (PRINC "!")) (TERPRI))' \
+--eval '(ASDF:LOAD-SYSTEM "shell-utility")' \
+--eval '(SHELL-UTILITY::LAUNCH/2 (QUOTE SHELL-UTILITY::SBCL) (QUOTE SYMBOLIC-SMALLTALK.SUGGESTED::HELLO))' \
+"$@"
+#+END_SRC
+
+The script can be run as follows:
 
 #+BEGIN_SRC sh
 hello --intensity 2 Homer Marge Bart Lisa Maggie
